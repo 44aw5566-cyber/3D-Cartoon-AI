@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3D Cartoon AI</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#10111c;color:white;font-family:Arial,sans-serif}
+header{padding:22px;background:#191a2c;text-align:center}
+h1{color:#a78bfa;margin:5px}
+main{padding:16px;max-width:650px;margin:auto}
+.card{background:#202238;border:1px solid #393956;padding:16px;border-radius:16px;margin:14px 0}
+h3{color:#c4b5fd}
+button,.upload{background:#7654dc;color:white;border:0;padding:13px;border-radius:10px;display:inline-block;margin:5px;cursor:pointer}
+input,textarea,select{width:100%;padding:12px;margin:8px 0;border-radius:9px;border:1px solid #555;background:#17192a;color:white}
+#preview{background:#080914;min-height:230px;border-radius:13px;display:flex;align-items:center;justify-content:center;flex-direction:column;overflow:hidden;text-align:center}
+#preview img{max-width:100%;max-height:300px}
+#caption{font-size:25px;color:white;padding:12px}
+small{color:#aaa}
+</style>
+</head>
+<body>
+<header>
+<h1>🎬 3D Cartoon AI</h1>
+<p>استوديو صناعة الفيديو الذكي</p>
+</header>
+<main>
+<div class="card">
+<h3>🎨 اختر طريقة العمل</h3>
+<select id="mode">
+<option>الدمج التلقائي بالذكاء الاصطناعي</option>
+<option>التحرير اليدوي</option>
+</select>
+</div>
+
+<div class="card">
+<h3>🖼️ إضافة الصور</h3>
+<input type="file" id="photo" accept="image/*">
+</div>
+
+<div class="card">
+<h3>🎵 إضافة الصوت</h3>
+<input type="file" id="sound" accept="audio/*">
+<audio id="player" controls style="width:100%;display:none"></audio>
+</div>
+
+<div class="card">
+<h3>✍️ إضافة الكتابة</h3>
+<textarea id="words" placeholder="اكتب النص الذي تريد ظهوره في الفيديو"></textarea>
+</div>
+
+<div class="card">
+<h3>📺 معاينة الفيديو</h3>
+<div id="preview">
+<div id="caption">3D Cartoon AI</div>
+<small>ستظهر صورتك وكتابتك هنا</small>
+</div>
+<button onclick="updatePreview()">تحديث المعاينة</button>
+</div>
+
+<div class="card">
+<h3>⚙️ إعدادات الفيديو</h3>
+<select id="quality">
+<option>1080p</option>
+<option>720p</option>
+</select>
+<select id="style">
+<option>كارتون ثلاثي الأبعاد</option>
+<option>سينمائي واقعي</option>
+<option>تصميم عادي</option>
+</select>
+<p><small>تصدير الفيديو MP4 سنضيفه في المرحلة القادمة.</small></p>
+</div>
+</main>
+<script>
+const photo=document.getElementById('photo');
+const sound=document.getElementById('sound');
+const player=document.getElementById('player');
+
+photo.onchange=()=>{
+ if(photo.files[0]){
+ let img=document.createElement('img');
+ img.src=URL.createObjectURL(photo.files[0]);
+ document.getElementById('preview').prepend(img);
+ }
+};
+sound.onchange=()=>{
+ if(sound.files[0]){
+ player.src=URL.createObjectURL(sound.files[0]);
+ player.style.display='block';
+ }
+};
+function updatePreview(){
+ document.getElementById('caption').textContent=
+ document.getElementById('words').value || '3D Cartoon AI';
+}
+</script>
+</body>
+</html>
